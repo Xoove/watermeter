@@ -1,0 +1,501 @@
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+
+import 'diary_settings_model.dart';
+export 'diary_settings_model.dart';
+
+class DiarySettingsWidget extends StatefulWidget {
+  const DiarySettingsWidget({super.key});
+
+  static String routeName = 'DiarySettings';
+  static String routePath = '/diarySettings';
+
+  @override
+  State<DiarySettingsWidget> createState() => _DiarySettingsWidgetState();
+}
+
+class _DiarySettingsWidgetState extends State<DiarySettingsWidget> {
+  late DiarySettingsModel _model;
+
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    _model = createModel(context, () => DiarySettingsModel());
+
+    _model.drinkFieldTextController ??= TextEditingController();
+    _model.drinkFieldFocusNode ??= FocusNode();
+
+    _model.diaryFieldTextController ??= TextEditingController();
+    _model.diaryFieldFocusNode ??= FocusNode();
+  }
+
+  @override
+  void dispose() {
+    _model.dispose();
+
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        body: SafeArea(
+          top: true,
+          child: Stack(
+            children: [
+              Align(
+                alignment: AlignmentDirectional(0, 0),
+                child: Container(
+                  width: 475,
+                  height: 915,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [Color(0xFFCEE8EE), Color(0xFF439EF9)],
+                      stops: [0, 1],
+                      begin: AlignmentDirectional(0, -1),
+                      end: AlignmentDirectional(0, 1),
+                    ),
+                  ),
+                ),
+              ),
+              Align(
+                alignment: AlignmentDirectional(0, 0.17),
+                child: Text(
+                  'Сколько выпил?',
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Poppins',
+                        color: Color(0xFF4C7485),
+                        fontSize: 28,
+                        letterSpacing: 0.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+              ),
+              Align(
+                alignment: AlignmentDirectional(0, -0.36),
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
+                  child: Container(
+                    width: 200,
+                    child: TextFormField(
+                      controller: _model.drinkFieldTextController,
+                      focusNode: _model.drinkFieldFocusNode,
+                      autofocus: true,
+                      obscureText: false,
+                      decoration: InputDecoration(
+                        labelStyle:
+                            FlutterFlowTheme.of(context).labelMedium.override(
+                                  fontFamily: 'Poppins',
+                                  color: Color(0xFF57636C),
+                                  fontSize: 14,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                        hintText: 'Название',
+                        hintStyle:
+                            FlutterFlowTheme.of(context).bodyMedium.override(
+                                  fontFamily: 'Poppins',
+                                  color: Color(0xFF4C7485),
+                                  fontSize: 14,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0xFFF1F4F8),
+                            width: 2,
+                          ),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0xFF04CAF5),
+                            width: 2,
+                          ),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0xFFFF5963),
+                            width: 2,
+                          ),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0xFFFF5963),
+                            width: 2,
+                          ),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        filled: true,
+                        fillColor: Color(0xFFF1F4F8),
+                        prefixIcon: Icon(
+                          Icons.battery_0_bar,
+                          color: Color(0xFF4C7485),
+                          size: 20,
+                        ),
+                      ),
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Poppins',
+                            color: Color(0xFF101213),
+                            fontSize: 14,
+                            letterSpacing: 0.0,
+                            fontWeight: FontWeight.w500,
+                          ),
+                      textAlign: TextAlign.justify,
+                      keyboardType: TextInputType.number,
+                      validator: _model.drinkFieldTextControllerValidator
+                          .asValidator(context),
+                    ),
+                  ),
+                ),
+              ),
+              Align(
+                alignment: AlignmentDirectional(0, -0.5),
+                child: Text(
+                  'Что выпил?',
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Poppins',
+                        color: Color(0xFF4C7485),
+                        fontSize: 28,
+                        letterSpacing: 0.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+              ),
+              Align(
+                alignment: AlignmentDirectional(0, 0.34),
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
+                  child: Container(
+                    width: 200,
+                    child: TextFormField(
+                      controller: _model.diaryFieldTextController,
+                      focusNode: _model.diaryFieldFocusNode,
+                      autofocus: true,
+                      obscureText: false,
+                      decoration: InputDecoration(
+                        labelStyle:
+                            FlutterFlowTheme.of(context).labelMedium.override(
+                                  fontFamily: 'Poppins',
+                                  color: Color(0xFF57636C),
+                                  fontSize: 14,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0xFFF1F4F8),
+                            width: 2,
+                          ),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0xFF04CAF5),
+                            width: 2,
+                          ),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0xFFFF5963),
+                            width: 2,
+                          ),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0xFFFF5963),
+                            width: 2,
+                          ),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        filled: true,
+                        fillColor: Color(0xFFF1F4F8),
+                        prefixIcon: Icon(
+                          Icons.water_drop_outlined,
+                          color: Color(0xFF4C7485),
+                          size: 20,
+                        ),
+                      ),
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Poppins',
+                            color: Color(0xFF101213),
+                            fontSize: 14,
+                            letterSpacing: 0.0,
+                            fontWeight: FontWeight.w500,
+                          ),
+                      textAlign: TextAlign.justify,
+                      keyboardType: TextInputType.number,
+                      validator: _model.diaryFieldTextControllerValidator
+                          .asValidator(context),
+                    ),
+                  ),
+                ),
+              ),
+              Align(
+                alignment: AlignmentDirectional(0, -0.17),
+                child: Text(
+                  'Во сколько?',
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Poppins',
+                        color: Color(0xFF4C7485),
+                        fontSize: 28,
+                        letterSpacing: 0.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+              ),
+              Align(
+                alignment: AlignmentDirectional(0, 0.51),
+                child: FFButtonWidget(
+                  onPressed: () async {
+                    await DiaryRecord.collection
+                        .doc()
+                        .set(createDiaryRecordData(
+                          waterCounter: int.tryParse(
+                              _model.diaryFieldTextController.text),
+                          time: _model.datePicked,
+                          drinkName: _model.drinkFieldTextController.text,
+                          count: () {
+                            if (_model.drinkFieldTextController.text ==
+                                'Вода') {
+                              return double.tryParse(
+                                  _model.diaryFieldTextController.text);
+                            } else if (_model.drinkFieldTextController.text ==
+                                'Сок') {
+                              return (double.parse(
+                                      _model.diaryFieldTextController.text) *
+                                  0.9);
+                            } else if (_model.drinkFieldTextController.text ==
+                                'Чай') {
+                              return (double.parse(
+                                      _model.diaryFieldTextController.text) *
+                                  0.95);
+                            } else if (_model.drinkFieldTextController.text ==
+                                'Кофе') {
+                              return (double.parse(
+                                      _model.diaryFieldTextController.text) *
+                                  0.8);
+                            } else if (_model.drinkFieldTextController.text ==
+                                'Газировка') {
+                              return (double.parse(
+                                      _model.diaryFieldTextController.text) *
+                                  0.85);
+                            } else if (_model.drinkFieldTextController.text ==
+                                'Молоко') {
+                              return (double.parse(
+                                      _model.diaryFieldTextController.text) *
+                                  1);
+                            } else {
+                              return double.tryParse(
+                                  _model.diaryFieldTextController.text);
+                            }
+                          }(),
+                        ));
+                    FFAppState().waterSum = FFAppState().waterSum +
+                        () {
+                          if (_model.drinkFieldTextController.text == 'Вода') {
+                            return double.parse(
+                                _model.diaryFieldTextController.text);
+                          } else if (_model.drinkFieldTextController.text ==
+                              'Сок') {
+                            return (double.parse(
+                                    _model.diaryFieldTextController.text) *
+                                0.9);
+                          } else if (_model.drinkFieldTextController.text ==
+                              'Чай') {
+                            return (double.parse(
+                                    _model.diaryFieldTextController.text) *
+                                0.95);
+                          } else if (_model.drinkFieldTextController.text ==
+                              'Кофе') {
+                            return (double.parse(
+                                    _model.diaryFieldTextController.text) *
+                                0.8);
+                          } else if (_model.drinkFieldTextController.text ==
+                              'Газировка') {
+                            return (double.parse(
+                                    _model.diaryFieldTextController.text) *
+                                0.85);
+                          } else if (_model.drinkFieldTextController.text ==
+                              'Молоко') {
+                            return (double.parse(
+                                    _model.diaryFieldTextController.text) *
+                                1);
+                          } else {
+                            return double.parse(
+                                _model.diaryFieldTextController.text);
+                          }
+                        }();
+                    safeSetState(() {});
+                    context.safePop();
+                  },
+                  text: 'Сохранить',
+                  options: FFButtonOptions(
+                    height: 40,
+                    padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
+                    iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                    color: Color(0xFF04CAF5),
+                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                          fontFamily: 'Poppins',
+                          color: Colors.white,
+                          fontSize: 25,
+                          letterSpacing: 0.0,
+                        ),
+                    elevation: 3,
+                    borderSide: BorderSide(
+                      color: Colors.transparent,
+                      width: 1,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+              ),
+              Align(
+                alignment: AlignmentDirectional(0, 0.61),
+                child: InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    context.safePop();
+                  },
+                  child: Text(
+                    'Вернуться',
+                    textAlign: TextAlign.center,
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Poppins',
+                          color: Colors.white,
+                          fontSize: 16,
+                          letterSpacing: 0.0,
+                        ),
+                  ),
+                ),
+              ),
+              Align(
+                alignment: AlignmentDirectional(0, -0.04),
+                child: Container(
+                  width: 200,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: Color(0xFFF1F4F8),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      final _datePickedTime = await showTimePicker(
+                        context: context,
+                        initialTime:
+                            TimeOfDay.fromDateTime(getCurrentTimestamp),
+                        builder: (context, child) {
+                          return wrapInMaterialTimePickerTheme(
+                            context,
+                            child!,
+                            headerBackgroundColor:
+                                FlutterFlowTheme.of(context).primary,
+                            headerForegroundColor:
+                                FlutterFlowTheme.of(context).info,
+                            headerTextStyle: FlutterFlowTheme.of(context)
+                                .headlineLarge
+                                .override(
+                                  fontFamily: 'Outfit',
+                                  fontSize: 32,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                            pickerBackgroundColor: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            pickerForegroundColor:
+                                FlutterFlowTheme.of(context).primaryText,
+                            selectedDateTimeBackgroundColor: Color(0xFF04CAF5),
+                            selectedDateTimeForegroundColor: Color(0xFFF1F4F8),
+                            actionButtonForegroundColor:
+                                FlutterFlowTheme.of(context).primaryText,
+                            iconSize: 24,
+                          );
+                        },
+                      );
+                      if (_datePickedTime != null) {
+                        safeSetState(() {
+                          _model.datePicked = DateTime(
+                            getCurrentTimestamp.year,
+                            getCurrentTimestamp.month,
+                            getCurrentTimestamp.day,
+                            _datePickedTime.hour,
+                            _datePickedTime.minute,
+                          );
+                        });
+                      } else if (_model.datePicked != null) {
+                        safeSetState(() {
+                          _model.datePicked = getCurrentTimestamp;
+                        });
+                      }
+                    },
+                    child: Stack(
+                      children: [
+                        Align(
+                          alignment: AlignmentDirectional(-1, 0),
+                          child: Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                            child: Icon(
+                              Icons.timer_sharp,
+                              color: Color(0xFF4C7485),
+                              size: 20,
+                            ),
+                          ),
+                        ),
+                        Align(
+                          alignment: AlignmentDirectional(-1, 0),
+                          child: Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(45, 0, 0, 0),
+                            child: Text(
+                              dateTimeFormat("Hm", _model.datePicked),
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Poppins',
+                                    color: Color(0xFF4C7485),
+                                    letterSpacing: 0.0,
+                                  ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
