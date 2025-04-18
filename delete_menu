@@ -1,0 +1,84 @@
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import 'dart:ui';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+
+import 'delete_menu_model.dart';
+export 'delete_menu_model.dart';
+
+class DeleteMenuWidget extends StatefulWidget {
+  const DeleteMenuWidget({
+    super.key,
+    required this.diaryRef,
+  });
+
+  final DocumentReference? diaryRef;
+
+  @override
+  State<DeleteMenuWidget> createState() => _DeleteMenuWidgetState();
+}
+
+class _DeleteMenuWidgetState extends State<DeleteMenuWidget> {
+  late DeleteMenuModel _model;
+
+  @override
+  void setState(VoidCallback callback) {
+    super.setState(callback);
+    _model.onUpdate();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _model = createModel(context, () => DeleteMenuModel());
+  }
+
+  @override
+  void dispose() {
+    _model.maybeDispose();
+
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: 65,
+      decoration: BoxDecoration(
+        color: FlutterFlowTheme.of(context).secondaryBackground,
+      ),
+      child: InkWell(
+        splashColor: Colors.transparent,
+        focusColor: Colors.transparent,
+        hoverColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        onTap: () async {
+          await widget!.diaryRef!.delete();
+          Navigator.pop(context);
+        },
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Align(
+              alignment: AlignmentDirectional(-1, 0),
+              child: Text(
+                'Delete',
+                style: FlutterFlowTheme.of(context).titleLarge.override(
+                      fontFamily: 'Poppins',
+                      color: Color(0xFFCE213A),
+                      letterSpacing: 0.0,
+                    ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
