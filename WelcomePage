@@ -1,0 +1,176 @@
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import '/index.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+
+import 'welcome_page_model.dart';
+export 'welcome_page_model.dart';
+
+class WelcomePageWidget extends StatefulWidget {
+  const WelcomePageWidget({
+    super.key,
+    this.water,
+  });
+
+  final FFUploadedFile? water;
+
+  static String routeName = 'WelcomePage';
+  static String routePath = '/welcomePage';
+
+  @override
+  State<WelcomePageWidget> createState() => _WelcomePageWidgetState();
+}
+
+class _WelcomePageWidgetState extends State<WelcomePageWidget> {
+  late WelcomePageModel _model;
+
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    _model = createModel(context, () => WelcomePageModel());
+  }
+
+  @override
+  void dispose() {
+    _model.dispose();
+
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        body: SafeArea(
+          top: true,
+          child: Stack(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.network(
+                  'https://images.unsplash.com/photo-1498462440456-0dba182e775b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwxNHx8d2F0ZXJ8ZW58MHx8fHwxNzE1MTk1OTMwfDA&ixlib=rb-4.0.3&q=80&w=1080',
+                  width: 556,
+                  height: 883,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              Align(
+                alignment: AlignmentDirectional(0, -0.58),
+                child: Padding(
+                  padding: EdgeInsets.all(24),
+                  child: Text(
+                    'Water Meter',
+                    style: FlutterFlowTheme.of(context).headlineSmall.override(
+                          fontFamily: 'PT Serif',
+                          color: Color(0xFF2B4076),
+                          fontSize: 40,
+                          letterSpacing: 0.0,
+                        ),
+                  ),
+                ),
+              ),
+              Align(
+                alignment: AlignmentDirectional(0.04, -0.95),
+                child: Text(
+                  'Drink Water\nStay Healthy',
+                  style: FlutterFlowTheme.of(context).labelSmall.override(
+                        fontFamily: 'Qwigley',
+                        color: Color(0xFF363838),
+                        fontSize: 40,
+                        letterSpacing: 0.0,
+                      ),
+                ),
+              ),
+              Align(
+                alignment: AlignmentDirectional(0.02, 0.92),
+                child: Padding(
+                  padding: EdgeInsets.all(12),
+                  child: FFButtonWidget(
+                    onPressed: () async {
+                      context.pushNamed(CreateAccountWidget.routeName);
+                    },
+                    text: 'Регистрация',
+                    options: FFButtonOptions(
+                      width: 211,
+                      height: 61.72,
+                      padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
+                      iconPadding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                      color: Color(0xFF04CAF5),
+                      textStyle:
+                          FlutterFlowTheme.of(context).titleSmall.override(
+                                fontFamily: 'Open Sans',
+                                color: Colors.white,
+                                fontSize: 20,
+                                letterSpacing: 0.0,
+                              ),
+                      elevation: 3,
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                        width: 10,
+                      ),
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                  ),
+                ),
+              ),
+              Align(
+                alignment: AlignmentDirectional(0.02, 0.69),
+                child: InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    context.pushNamed(LogInWidget.routeName);
+                  },
+                  child: RichText(
+                    textScaler: MediaQuery.of(context).textScaler,
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'Уже есть аккаунт?',
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Readex Pro',
+                                    color: Colors.white,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                        ),
+                        TextSpan(
+                          text: ' Авторизоваться',
+                          style: TextStyle(
+                            color: Color(0xFF04CAF5),
+                          ),
+                        )
+                      ],
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Readex Pro',
+                            color: Colors.black,
+                            fontSize: 16,
+                            letterSpacing: 0.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
